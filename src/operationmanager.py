@@ -12,8 +12,8 @@
 
 import time
 
-from PyQt4.QtCore import QObject
-from PyQt4.QtCore import SIGNAL
+from PyQt5.QtCore import QObject
+from PyQt5.QtCore import pyqtSignal
 
 from pmutils import *
 from pmlogging import logger

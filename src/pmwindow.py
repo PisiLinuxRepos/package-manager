@@ -15,10 +15,10 @@ import os
 import sys
 import pisi
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtGui import QPixmap
-from PyQt4.QtGui import QMessageBox
-from PyQt4.QtCore import *
+from PyQt5.QtGui import QDialog
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtCore import *
 
 from statemanager import StateManager
 from operationmanager import OperationManager

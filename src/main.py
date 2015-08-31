@@ -17,9 +17,9 @@ import dbus
 import signal
 import traceback
 
-# PyQt4 Imports
-from PyQt4.QtGui import QFont
-from PyQt4.QtGui import QApplication
+# PyQt5 Imports
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QApplication
 from pds.quniqueapp import QUniqueApplication
 
 # Package Manager Specific Imports

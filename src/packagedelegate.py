@@ -12,28 +12,28 @@
 #
 
 # Qt Stuff
-from PyQt4.QtGui import qApp
-from PyQt4.QtGui import QIcon
-from PyQt4.QtGui import QFont
-from PyQt4.QtGui import QColor
-from PyQt4.QtGui import QStyle
-from PyQt4.QtGui import QPixmap
-from PyQt4.QtGui import QPainter
-from PyQt4.QtGui import QPalette
-from PyQt4.QtGui import QFontMetrics
-from PyQt4.QtGui import QItemDelegate
-from PyQt4.QtGui import QStyleFactory
-from PyQt4.QtGui import QDesktopServices
-from PyQt4.QtGui import QStyleOptionButton
-from PyQt4.QtGui import QStyledItemDelegate
-from PyQt4.QtGui import QStyleOptionViewItemV4
+from PyQt5.QtGui import qApp
+from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QStyle
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QItemDelegate
+from PyQt5.QtGui import QStyleFactory
+from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtGui import QStyleOptionButton
+from PyQt5.QtGui import QStyledItemDelegate
+from PyQt5.QtGui import QStyleOptionViewItemV4
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtCore import QUrl
-from PyQt4.QtCore import QRect
-from PyQt4.QtCore import QEvent
-from PyQt4.QtCore import QPoint
-from PyQt4.QtCore import QVariant
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QRect
+from PyQt5.QtCore import QEvent
+from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QVariant
 
 from pmutils import *
 from packagemodel import *

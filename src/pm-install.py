@@ -18,10 +18,10 @@ import signal
 import traceback
 from optparse import OptionParser
 
-# PyQt4 Imports
-from PyQt4.QtCore import *
-from PyQt4.QtGui import QFont
-from PyQt4.QtGui import QApplication
+# PyQt5 Imports
+from PyQt5.QtCore import *
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QApplication
 
 from pds.quniqueapp import QUniqueApplication
 

@@ -13,14 +13,14 @@
 
 import backend
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtCore import SIGNAL
-from PyQt4.QtCore import QSize
-from PyQt4.QtCore import QVariant
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import QVariant
 
-from PyQt4.QtGui import QIcon
-from PyQt4.QtGui import QListWidget
-from PyQt4.QtGui import QListWidgetItem
+from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QListWidget
+from PyQt5.QtGui import QListWidgetItem
 
 from pmutils import *
 from statemanager import StateManager

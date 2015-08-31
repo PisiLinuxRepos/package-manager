@@ -10,8 +10,8 @@
 #
 # Please read the COPYING file
 
-from PyQt4 import QtGui
-from PyQt4.QtCore import *
+from PyQt5 import QtGui
+from PyQt5.QtCore import *
 
 from packagemodel import GroupRole
 from packageproxy import PackageProxy

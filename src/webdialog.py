@@ -10,9 +10,9 @@
 #
 # Please read the COPYING file
 
-from PyQt4 import QtGui
-from PyQt4 import QtWebKit
-from PyQt4.QtCore import *
+from PyQt5 import QtGui
+from PyQt5 import QtWebKit
+from PyQt5.QtCore import *
 
 import config
 

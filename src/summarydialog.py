@@ -11,9 +11,9 @@
 # Please read the COPYING file
 
 import os
-from PyQt4 import QtGui
-from PyQt4.QtGui import qApp
-from PyQt4.QtCore import *
+from PyQt5 import QtGui
+from PyQt5.QtGui import qApp
+from PyQt5.QtCore import *
 
 from ui_summarydialog import Ui_SummaryDialog
 from ui_appitem import Ui_ApplicationItem

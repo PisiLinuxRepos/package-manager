@@ -11,22 +11,21 @@
 # Please read the COPYING file.
 #
 
-from PyQt4.QtGui import qApp
-from PyQt4.QtGui import QMenu
-from PyQt4.QtGui import QLabel
-from PyQt4.QtGui import QWidget
-from PyQt4.QtGui import QCompleter
-from PyQt4.QtGui import QMessageBox
-from PyQt4.QtGui import QPushButton
-from PyQt4.QtGui import QToolButton
-from PyQt4.QtGui import QFontMetrics
+from PyQt5.QtGui import qApp
+from PyQt5.QtGui import QMenu
+from PyQt5.QtGui import QLabel
+from PyQt5.QtGui import QCompleter
+from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt5.QtGui import QPushButton
+from PyQt5.QtGui import QToolButton
+from PyQt5.QtGui import QFontMetrics
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtCore import QSize
-from PyQt4.QtCore import SIGNAL
-from PyQt4.QtCore import QTimer
-from PyQt4.QtCore import QRegExp
-from PyQt4.QtCore import QVariant
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QSize
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtCore import QVariant
 
 from ui_mainwidget_v3 import Ui_MainWidget
 

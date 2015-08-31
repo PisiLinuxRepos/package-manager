@@ -9,10 +9,10 @@
 #
 # Please read the COPYING file.
 
-from PyQt4.QtGui import QDialog
-from PyQt4.QtGui import QGridLayout
-from PyQt4.QtGui import QTextBrowser
-from PyQt4.QtCore import QUrl
+from PyQt5.QtGui import QDialog
+from PyQt5.QtGui import QGridLayout
+from PyQt5.QtGui import QTextBrowser
+from PyQt5.QtCore import QUrl
 
 from pmutils import *
 from localedata import *
