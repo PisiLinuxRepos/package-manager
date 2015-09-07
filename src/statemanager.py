@@ -49,10 +49,11 @@ class StateManager(QObject):
         self.__new_packages = self.iface.getNewPackages()
         self.__all_packages = self.__installed_packages + self.__new_packages
 
+    repositoriesChanged = pyqtSignal()
     def setState(self, state):
         self.state = state
         self.reset()
-        self.emit(SIGNAL("repositoriesChanged()"))
+        self.repositoriesChanged.emit()
 
     def getState(self):
         return self.state
@@ -145,7 +146,7 @@ class StateManager(QObject):
             return list(set(self.packages()).intersection(group_packages))
 
     def chainAction(self, operation):
-        chains = { "System.Manager.setRepositories":lambda:self.emit(SIGNAL("repositoriesChanged()")) }
+        chains = { "System.Manager.setRepositories":lambda:self.repositoriesChanged.emit() }
         if chains.has_key(operation):
             chains[operation]()
 

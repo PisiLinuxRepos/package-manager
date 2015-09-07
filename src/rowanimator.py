@@ -52,8 +52,8 @@ class RowAnimator(object):
 
     def initTimeLine(self):
         self.timeLine = QTimeLine(300)
-        QObject.connect(self.timeLine, SIGNAL("frameChanged(int)"), self.updateSize)
-        QObject.connect(self.timeLine, SIGNAL("finished()"), self.finished)
+        self.timeLine.frameChanged.connect(self.updateSize)
+        self.timeLine.finished.connect(self.finished)
         self.timeLine.setDirection(QTimeLine.Backward)
 
     def animate(self, row, reverseOld = False):
@@ -63,7 +63,7 @@ class RowAnimator(object):
             if not self.row == row:
                 self.timeLine.setFrameRange(DEFAULT_HEIGHT, self.max_height)
                 self.timeLine.start()
-                QObject.connect(self.timeLine, SIGNAL("finished()"), lambda: self.animate(row, True))
+                self.timeLine.finished.connect(lambda: self.animate(row, True))
                 if not reverseOld:
                     return
 

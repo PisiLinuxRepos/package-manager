@@ -83,6 +83,7 @@ class PackageView(QtGui.QTableView):
     def search(self, text):
         return self.model().sourceModel().search(text)
 
+    updateRequested = pyqtSignal()
     def requestUpdate(self):
-        self.emit(SIGNAL("updateRequested()"))
+        self.updateRequested.emit()
 

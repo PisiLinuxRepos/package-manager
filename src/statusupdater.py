@@ -11,7 +11,7 @@
 # Please read the COPYING file.
 #
 
-from PyQt5.QtCore import QThread, SIGNAL
+from PyQt5.QtCore import QThread, pyqtSignal
 from pmutils import humanReadableSize as humanize
 
 class StatusUpdater(QThread):
@@ -24,6 +24,7 @@ class StatusUpdater(QThread):
     def setModel(self, model):
         self.model = model
 
+    selectedInfoChanged = pyqtSignal() # ???
     def run(self):
         packages = len(self.model.selectedPackages())
         packagesSize = humanize(self.model.selectedPackagesSize())

@@ -80,8 +80,8 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
         self.packageList.setItemDelegate(PackageDelegate(self, self.parent))
         self.packageList.setColumnWidth(0, 32)
 
-        self.connect(self.packageList.model(), SIGNAL("dataChanged(QModelIndex,QModelIndex)"), self.statusChanged)
-        self.connect(self.packageList, SIGNAL("updateRequested()"), self.initialize)
+        self.packageList.model().dataChanged.connect(self.statusChanged)
+        self.packageList.updateRequested.connect(self.initialize)
 
         self.updateSettings()
         self.setActionButton()
@@ -98,20 +98,21 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
         self.pdsMessageBox = PMessageBox(self.content)
 
     def connectMainSignals(self):
-        self.connect(self.actionButton, SIGNAL("clicked()"), self.showBasket)
-        self.connect(self.checkUpdatesButton, SIGNAL("clicked()"), self.state.updateRepoAction)
-        self.connect(self.searchButton, SIGNAL("clicked()"), self.searchActivated)
-        self.connect(self.searchLine, SIGNAL("textEdited(const QString&)"), self.searchLineChanged)
-        self.connect(self.searchLine, SIGNAL("returnPressed()"), self.searchActivated)
-        self.connect(self.searchLine, SIGNAL("clearButtonClicked()"), self.groupFilter)
-        self.connect(self.typeCombo, SIGNAL("activated(int)"), self.typeFilter)
-        self.connect(self.stateTab, SIGNAL("currentChanged(int)"), self.switchState)
-        self.connect(self.groupList, SIGNAL("groupChanged()"), self.groupFilter)
-        self.connect(self.groupList, SIGNAL("groupChanged()"), lambda:self.searchButton.setEnabled(False))
-        self.connect(self.packageList.select_all, SIGNAL("clicked(bool)"), self.toggleSelectAll)
-        self.connect(self.statusUpdater, SIGNAL("selectedInfoChanged(int, QString, int, QString)"), self.emitStatusBarInfo)
-        self.connect(self.statusUpdater, SIGNAL("selectedInfoChanged(QString)"), lambda message: self.emit(SIGNAL("selectionStatusChanged(QString)"), message))
-        self.connect(self.statusUpdater, SIGNAL("finished()"), self.statusUpdated)
+        self.actionButton.clicked.connect(self.showBasket)
+        self.checkUpdatesButton.clicked.connect(self.state.updateRepoAction)
+        self.searchButton.clicked.connect(self.searchActivated)
+        self.searchLine.textEdited.connect(self.searchLineChanged)
+        self.searchLine.returnPressed.connect(self.searchActivated)
+        self.searchLine.clearButtonClicked.connect(self.groupFilter)
+        self.typeCombo.activated.connect(self.typeFilter)
+        self.stateTab.currentChanged.connect(self.switchState)
+        self.groupList.groupChanged.connect(self.groupFilter)
+        self.groupList.groupChanged.connect(lambda:self.searchButton.setEnabled(False))
+        self.packageList.select_all.clicked.connect(self.toggleSelectAll)
+        self.statusUpdater.selectedInfoChanged.connect(self.emitStatusBarInfo)
+        self.statusUpdater.selectedInfoChanged.connect(self.statusUpdater, SIGNAL("selectedInfoChanged(QString)"),
+                                                       lambda message: self.selectionStatusChanged.emit(message))
+        self.statusUpdater.finished.connect(self.statusUpdated)
 
     def initialize(self):
         waitCursor()
@@ -340,7 +341,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
             self.initialize()
 
     def emitStatusBarInfo(self, packages, packagesSize, extraPackages, extraPackagesSize):
-        self.emit(SIGNAL("selectionStatusChanged(QString)"), self.state.statusText(packages, packagesSize, extraPackages, extraPackagesSize))
+        self.selectionStatusChanged.emit(self.state.statusText(packages, packagesSize, extraPackages, extraPackagesSize))
 
     def setSelectAll(self, packages=None):
         if packages:
