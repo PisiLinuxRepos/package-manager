@@ -123,7 +123,7 @@ class PackageModel(QAbstractTableModel):
         if role == Qt.CheckStateRole and index.column() == 0:
             self.package_selections[index.row()] = value
             self.resetCachedInfos()
-            self.emit(SIGNAL("dataChanged(QModelIndex,QModelIndex)"), index, index)
+            self.dataChanged.emit(index, index)
             return True
         return False
 

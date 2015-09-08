@@ -30,8 +30,7 @@ class GroupList(QListWidget):
         QListWidget.__init__(self, parent)
         self.iface = backend.pm.Iface()
         self.defaultIcon = KIcon(('applications-other', 'unknown'), KIconLoader.SizeSmallMedium)
-        self.connect(self, SIGNAL("itemClicked(QListWidgetItem*)"),
-                            self.groupChanged)
+        self.itemClicked.connect(self.groupChanged)
         self._list = {}
 
     def setState(self, state):
@@ -86,5 +85,5 @@ class GroupList(QListWidget):
             return unicode(self.currentItem().data(Qt.UserRole).toString())
 
     def groupChanged(self):
-        self.emit(SIGNAL("groupChanged()"))
+        self.emit("groupChanged()")
 

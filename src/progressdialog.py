@@ -44,7 +44,7 @@ class ProgressDialog(PAbstractBox, Ui_ProgressDialog):
         self.registerFunction(FINISHED, self.busy.startAnimation)
         self.registerFunction(OUT, self.busy.stopAnimation)
 
-        self.connect(self.cancelButton, SIGNAL("clicked()"), self.cancel)
+        self.cancelButton.clicked.connect(self.cancel)
         self.cancelButton.setIcon(KIcon("cancel"))
         self.parent = parent
 

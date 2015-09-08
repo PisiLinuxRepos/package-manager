@@ -34,7 +34,7 @@ class PTray:
         self.settingsChanged()
 
     def animate(self):
-        self.connect(self.clip, SIGNAL("frameChanged(int)"), self.slotAnimate)
+        self.clip.frameChanged.connect(self.slotAnimate)
         self.clip.setCacheMode(QtGui.QMovie.CacheAll)
         self.clip.start()
 
@@ -47,7 +47,7 @@ class PTray:
 
     def initializeTimer(self):
         self.timer = QTimer()
-        self.timer.connect(self.timer, SIGNAL("timeout()"), self.checkUpdate)
+        self.timer.timeout.connect(self.checkUpdate)
         self.interval = config.PMConfig().updateCheckInterval()
         self.updateInterval(self.interval)
 
@@ -61,7 +61,7 @@ class PTray:
         action = QtGui.QAction(KIcon(icon), unicode(title), self)
         action.setData(QVariant(unicode(repo)))
         menu.addAction(action)
-        self.connect(action, SIGNAL("triggered()"), self.updateRepo)
+        action.triggered.connect(self.updateRepo)
 
     def updateRepo(self):
         if not self.iface.operationInProgress():

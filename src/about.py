@@ -15,27 +15,28 @@
 version = "2.4.1"
 PACKAGE = "Package Manager"
 
-# PyKDE4 Imports
-# from PyKDE4.kdecore import ki18n, ki18nc, KAboutData
+# PyKDE5 Imports
+from PyKDE5.kdecore import ki18n, ki18nc, KAboutData
 
 # Application Data
 appName     = "package-manager"
 catalog     = appName
-# programName = ki18n(PACKAGE)
-# description = ki18n(PACKAGE)
-# license     = KAboutData.License_GPL
-# copyright   = ki18n("(c) 2009-2010 TUBITAK/UEKAE")
-# text        = ki18n(None)
+programName = ki18n(PACKAGE)
+description = ki18n(PACKAGE)
+license     = KAboutData.License_GPL
+copyright   = ki18n("(c) 2009-2010 TUBITAK/UEKAE")
+text        = ki18n(None)
 homePage    = "https://github.com/pisilinux/project/tree/master/package-manager-pds"
 bugEmail    = "bugs@pisilinux.org"
-# aboutData   = KAboutData(appName, catalog, programName, version,
-#                          description, license, copyright, text,
-#                          homePage, bugEmail)
+aboutData   = KAboutData(appName, catalog, programName, version,
+                         description, license, copyright, text,
+                         homePage, bugEmail)
 
 # Authors
-# aboutData.addAuthor(ki18n("Gökmen Göksel"), ki18n("Developer"))
-# aboutData.addAuthor(ki18n("Faik Uygur"), ki18n("First Author"))
-# aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"),
-#                         ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
-# aboutData.setProgramIconName(":/data/package-manager.png")
+aboutData.addAuthor(ki18n("Gökmen Göksel"), ki18n("Developer"))
+aboutData.addAuthor(ki18n("Metehan Özbek"), ki18n("KDE5 Port"))
+aboutData.addAuthor(ki18n("Faik Uygur"), ki18n("First Author"))
+aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"),
+                        ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
+aboutData.setProgramIconName(":/data/package-manager.png")
 
