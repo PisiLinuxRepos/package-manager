@@ -10,8 +10,8 @@
 #
 # Please read the COPYING file
 
-from PyQt5 import QtGui
-from PyQt5 import QtWebKit
+from PyQt5.QtGui import *
+from PyQt5.QtWebKit import *
 from PyQt5.QtCore import *
 
 import config
@@ -50,7 +50,7 @@ class WebDialog(PAbstractBox, Ui_WebDialog):
         self.webView.page().mainFrame().setScrollBarPolicy(Qt.Vertical, Qt.ScrollBarAlwaysOff)
         self.webView.page().mainFrame().setScrollBarPolicy(Qt.Horizontal, Qt.ScrollBarAlwaysOff)
 
-        self.webView.page().setLinkDelegationPolicy(QtWebKit.QWebPage.DelegateAllLinks)
+        self.webView.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.webView.page().linkClicked.connect(self.showFullImage)
 
         self.tabWidget.removeTab(0)
@@ -110,7 +110,7 @@ class WebDialog(PAbstractBox, Ui_WebDialog):
         self.packageName.setText(package)
         self.filesList.clear()
 
-        self.tabWidget.insertTab(0, self.packageFiles, i18n('Package Files'))
+        self.tabWidget.insertTab(0, self.packageFiles, self.tr('Package Files'))
         self.tabWidget.currentChanged.connect(self._tabSwitched)
 
         if config.USE_APPINFO:

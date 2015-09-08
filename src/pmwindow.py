@@ -15,7 +15,7 @@ import os
 import sys
 import pisi
 
-from PyQt5.QtGui import QDialog
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import *
@@ -132,10 +132,10 @@ class PmWindow(QDialog, PM, Ui_PmWindow):
         actions = self.state.checkInstallActions(self.model.selectedPackages())
         if actions:
             answer = askForActions(actions,
-                   i18n("Selected packages are already installed.<br>"
+                   self.tr("Selected packages are already installed.<br>"
                         "If you continue, the packages will be reinstalled"),
-                   i18n("Already Installed Packages"),
-                   i18n("Installed Packages"))
+                   self.tr("Already Installed Packages"),
+                   self.tr("Installed Packages"))
 
         if not answer:
             self.button_install.setEnabled(True)

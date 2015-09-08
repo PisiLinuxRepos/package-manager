@@ -14,10 +14,10 @@ import re
 from os import path
 
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtGui import QDialog
-from PyQt5.QtGui import QTableWidgetItem
-from PyQt5.QtGui import QCheckBox
-from PyQt5.QtGui import QFileDialog
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QCheckBox
+from PyQt5.QtWidgets import QFileDialog
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtNetwork import QNetworkProxy
 from PyQt5.QtCore import *
@@ -157,7 +157,7 @@ class CacheSettings(SettingsTab):
             QDesktopServices.openUrl(QUrl("file://%s" % cache_dir, QUrl.TolerantMode))
 
     def selectCacheDir(self):
-        selected_dir = QFileDialog.getExistingDirectory(self.settings, i18n("Open Directory"), "/",
+        selected_dir = QFileDialog.getExistingDirectory(self.settings, self.tr("Open Directory"), "/",
                                                         QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if not selected_dir == '':
             if not selected_dir == self.settings.cacheDirPath.text():
@@ -166,8 +166,8 @@ class CacheSettings(SettingsTab):
 
     def clearCache(self):
         if QMessageBox.Yes == QMessageBox.warning(self.settings,
-                                                  i18n("Warning"),
-                                                  i18n("All the cached packages will be deleted. Are you sure? "),
+                                                  self.tr("Warning"),
+                                                  self.tr("All the cached packages will be deleted. Are you sure? "),
                                                   QMessageBox.Yes | QMessageBox.No):
             try:
                 self.iface.clearCache(0)
@@ -244,13 +244,13 @@ class RepositorySettings(SettingsTab):
         repoAddress = self.repoDialog.repoAddress.currentText()
         if not re.match("^[0-9%s\-\\_\\.\s]*$" % str(pmutils.letters()), str(repoName)) or str(repoName) == '':
             QMessageBox.warning(self.settings,
-                                i18n("Pisi Error"),
-                                i18n("Not a valid repository name"))
+                                self.tr("Pisi Error"),
+                                self.tr("Not a valid repository name"))
             return
         if not repoAddress.endsWith("xml") and not repoAddress.endsWith("xml.bz2") and not repoAddress.endsWith('xz'):
             QMessageBox.warning(self.settings,
-                                i18n("Pisi Error"),
-                                i18n('<qt>Repository address should end with xml or xml.bz2 or xz suffix.<p>Please try again.</qt>'))
+                                self.tr("Pisi Error"),
+                                self.tr('<qt>Repository address should end with xml or xml.bz2 or xz suffix.<p>Please try again.</qt>'))
             return
         self.__insertRow(repoName, repoAddress)
         self.markChanged()

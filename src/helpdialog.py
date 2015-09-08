@@ -9,9 +9,9 @@
 #
 # Please read the COPYING file.
 
-from PyQt5.QtGui import QDialog
-from PyQt5.QtGui import QGridLayout
-from PyQt5.QtGui import QTextBrowser
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtWidgets import QGridLayout
+from PyQt5.QtWidgets import QTextBrowser
 from PyQt5.QtCore import QUrl
 
 from pmutils import *
@@ -28,7 +28,7 @@ class HelpDialog(QDialog):
     def __init__(self, parent, help):
         QDialog.__init__(self, parent)
 
-        self.setWindowTitle(i18n("Package Manager Help"))
+        self.setWindowTitle(self.tr("Package Manager Help"))
         self.resize(700,500)
         self.setModal(True)
 

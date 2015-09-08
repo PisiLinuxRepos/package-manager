@@ -24,7 +24,7 @@ class StatusUpdater(QThread):
     def setModel(self, model):
         self.model = model
 
-    selectedInfoChanged = pyqtSignal() # ???
+    selectedInfoChanged = pyqtSignal() # ??? emit() de iki farklı kullanımı var. Nasıl olur bilmem.
     def run(self):
         packages = len(self.model.selectedPackages())
         packagesSize = humanize(self.model.selectedPackagesSize())

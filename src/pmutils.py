@@ -44,57 +44,57 @@ Pds = pds.Pds('package-manager', debug = False)
 # Pds.session = pds.DefaultDe
 # print 'Current session is : %s %s' % (Pds.session.Name, Pds.session.Version)
 
-i18n = Pds.session.i18n
-KIconLoader = QIconLoader(Pds)
-KIcon = KIconLoader.icon
+#i18n = Pds.session.i18n
+#KIconLoader = QIconLoader(Pds)
+#KIcon = KIconLoader.icon
 
 class PM:
 
     def connectOperationSignals(self):
         # Basic connections
-        self.connect(self.operation, SIGNAL("exception(QString)"), self.exceptionCaught)
-        self.connect(self.operation, SIGNAL("finished(QString)"), self.actionFinished)
-        self.connect(self.operation, SIGNAL("started(QString)"), self.actionStarted)
-        self.connect(self.operation, SIGNAL("operationCancelled()"), self.actionCancelled)
+        self.operation.exception.connect(self.exceptionCaught)
+        self.operation.finished.connect(self.actionFinished)
+        self.operation.started.connect(self.actionStarted)
+        self.operation.operationCancelled.connect(self.actionCancelled)
 
         # ProgressDialog connections
-        self.connect(self.operation, SIGNAL("started(QString)"), self.progressDialog.updateActionLabel)
-        self.connect(self.operation, SIGNAL("progress(int)"), self.progressDialog.updateProgress)
-        self.connect(self.operation, SIGNAL("operationChanged(QString,QString)"), self.progressDialog.updateOperation)
-        self.connect(self.operation, SIGNAL("packageChanged(int, int, QString)"), self.progressDialog.updateStatus)
-        self.connect(self.operation, SIGNAL("elapsedTime(QString)"), self.progressDialog.updateRemainingTime)
-        self.connect(self.operation, SIGNAL("downloadInfoChanged(QString, QString, QString)"), self.progressDialog.updateCompletedInfo)
+        self.operation.started.connect(self.progressDialog.updateActionLabel)
+        self.operation.progress.connect(self.progressDialog.updateProgress)
+        self.operation.operationChanged.connect(self.progressDialog.updateOperation)
+        self.operation.packageChanged.connect(self.progressDialog.updateStatus)
+        self.operation.elapsedTime.connect(self.progressDialog.updateRemainingTime)
+        self.operation.downloadInfoChanged.connect(self.progressDialog.updateCompletedInfo)
 
     def notifyFinished(self):
         if not self.operation.totalPackages:
             return
-        Pds.notify(i18n('Package Manager'), self.state.getSummaryInfo(self.operation.totalPackages))
+        Pds.notify(self.tr('Package Manager'), self.state.getSummaryInfo(self.operation.totalPackages))
 
     def exceptionCaught(self, message, package = '', block = False):
         self.runPreExceptionMethods()
 
         if any(warning in message for warning in ('urlopen error','Socket Error', 'PYCURL ERROR')):
-            errorTitle = i18n("Network Error")
-            errorMessage = i18n("Please check your network connections and try again.")
+            errorTitle = self.tr("Network Error")
+            errorMessage = self.tr("Please check your network connections and try again.")
         elif "Access denied" in message or "tr.org.pardus.comar.Comar.PolicyKit" in message:
-            errorTitle = i18n("Authorization Error")
-            errorMessage = i18n("You are not authorized for this operation.")
+            errorTitle = self.tr("Authorization Error")
+            errorMessage = self.tr("You are not authorized for this operation.")
         elif "HTTP Error 404" in message and not package == '':
-            errorTitle = i18n("Pisi Error")
-            errorMessage = unicode(i18n("Package <b>%s</b> not found in repositories.<br>"\
+            errorTitle = self.tr("Pisi Error")
+            errorMessage = unicode(self.tr("Package <b>%s</b> not found in repositories.<br>"\
                                         "It may be upgraded or removed from the repository.<br>"\
                                         "Please try upgrading repository informations.")) % package
         elif "MIXING PACKAGES" in message:
-            errorTitle = i18n("Pisi Error")
-            errorMessage = i18n("Mixing file names and package names not supported yet.")
+            errorTitle = self.tr("Pisi Error")
+            errorMessage = self.tr("Mixing file names and package names not supported yet.")
         elif "FILE NOT EXISTS" in message:
-            errorTitle = i18n("Pisi Error")
-            errorMessage = unicode(i18n("File <b>%s</b> doesn't exists.")) % package
+            errorTitle = self.tr("Pisi Error")
+            errorMessage = unicode(self.tr("File <b>%s</b> doesn't exists.")) % package
         elif "ALREADY RUNNING" in message:
-            errorTitle = i18n("Pisi Error")
-            errorMessage = i18n("Another instance of PiSi is running. Only one instance is allowed.")
+            errorTitle = self.tr("Pisi Error")
+            errorMessage = self.tr("Another instance of PiSi is running. Only one instance is allowed.")
         else:
-            errorTitle = i18n("Pisi Error")
+            errorTitle = self.tr("Pisi Error")
             errorMessage = message
 
         self.messageBox = QMessageBox(errorTitle, errorMessage, QMessageBox.Critical, QMessageBox.Ok, 0, 0)
@@ -126,7 +126,7 @@ def isAllLocal(packages):
 def askForActions(packages, reason, title, details_title):
     msgbox = QMessageBox()
     msgbox.setText('<b>%s</b>' % reason)
-    msgbox.setInformativeText(i18n("Do you want to continue ?"))
+    msgbox.setInformativeText(msgbox.tr("Do you want to continue ?"))
     msgbox.setDetailedText(details_title + '\n' + '-'*60 + '\n  - ' + '\n  - '.join(packages))
     msgbox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     return msgbox.exec_() == QMessageBox.Yes

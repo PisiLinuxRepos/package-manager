@@ -11,21 +11,25 @@
 # Please read the COPYING file.
 #
 
+from PyQt5.QtCore import QObject
+
+# Çoklu dil için bu sınıfın tr() methodunu kullanacağız.
+_ = QObject()
+
 # Package Manager Version String
 version = "2.4.1"
 PACKAGE = "Package Manager"
 
-# PyKDE5 Imports
-from PyKDE5.kdecore import ki18n, ki18nc, KAboutData
+# KAboutData ile ki18nc nin işlevini bilmiyorum.
 
 # Application Data
 appName     = "package-manager"
 catalog     = appName
-programName = ki18n(PACKAGE)
-description = ki18n(PACKAGE)
+programName = _.tr(PACKAGE)
+description = _.tr(PACKAGE)
 license     = KAboutData.License_GPL
-copyright   = ki18n("(c) 2009-2010 TUBITAK/UEKAE")
-text        = ki18n(None)
+copyright   = _.tr("(c) 2009-2010 TUBITAK/UEKAE")
+text        = _.tr(None)
 homePage    = "https://github.com/pisilinux/project/tree/master/package-manager-pds"
 bugEmail    = "bugs@pisilinux.org"
 aboutData   = KAboutData(appName, catalog, programName, version,
@@ -33,9 +37,9 @@ aboutData   = KAboutData(appName, catalog, programName, version,
                          homePage, bugEmail)
 
 # Authors
-aboutData.addAuthor(ki18n("Gökmen Göksel"), ki18n("Developer"))
-aboutData.addAuthor(ki18n("Metehan Özbek"), ki18n("KDE5 Port"))
-aboutData.addAuthor(ki18n("Faik Uygur"), ki18n("First Author"))
+aboutData.addAuthor(_.tr("Gökmen Göksel"), _.tr("Developer"))
+aboutData.addAuthor(_.tr("Metehan Özbek"), _.tr("KDE5 Port"))
+aboutData.addAuthor(_.tr("Faik Uygur"), _.tr("First Author"))
 aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"),
                         ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
 aboutData.setProgramIconName(":/data/package-manager.png")

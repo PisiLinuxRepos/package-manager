@@ -19,8 +19,8 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtCore import QVariant
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QListWidget
-from PyQt5.QtGui import QListWidgetItem
+from PyQt5.QtWidgets import QListWidget
+from PyQt5.QtWidgets import QListWidgetItem
 
 from pmutils import *
 from statemanager import StateManager
@@ -42,7 +42,7 @@ class GroupList(QListWidget):
                 self.createGroupItem(name)
         else:
             self.createGroupItem('all',
-                    (i18n('All'), 'media-optical', len(self.state.packages())))
+                    (self.tr('All'), 'media-optical', len(self.state.packages())))
         self.sortItems()
         self.moveAllToFirstLine()
         self.setCurrentItem(self.item(0))
@@ -84,6 +84,7 @@ class GroupList(QListWidget):
         if self.currentItem():
             return unicode(self.currentItem().data(Qt.UserRole).toString())
 
+    groupChanged = pyqtSignal()
     def groupChanged(self):
-        self.emit("groupChanged()")
+        self.groupChanged.emit()
 

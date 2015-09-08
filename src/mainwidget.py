@@ -11,13 +11,13 @@
 # Please read the COPYING file.
 #
 
-from PyQt5.QtGui import qApp
-from PyQt5.QtGui import QMenu
-from PyQt5.QtGui import QLabel
+from PyQt5.QtGui import qApp # ???
+from PyQt5.QtWidgets import QMenu
+from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QCompleter
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
-from PyQt5.QtGui import QPushButton
-from PyQt5.QtGui import QToolButton
+from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QToolButton
 from PyQt5.QtGui import QFontMetrics
 
 from PyQt5.QtCore import Qt
@@ -110,8 +110,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
         self.groupList.groupChanged.connect(lambda:self.searchButton.setEnabled(False))
         self.packageList.select_all.clicked.connect(self.toggleSelectAll)
         self.statusUpdater.selectedInfoChanged.connect(self.emitStatusBarInfo)
-        self.statusUpdater.selectedInfoChanged.connect(self.statusUpdater, SIGNAL("selectedInfoChanged(QString)"),
-                                                       lambda message: self.selectionStatusChanged.emit(message))
+        self.statusUpdater.selectedInfoChanged.connect(lambda message: self.selectionStatusChanged.emit(message))
         self.statusUpdater.finished.connect(self.statusUpdated)
 
     def initialize(self):
@@ -131,7 +130,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
         if self.currentState == self.state.UPGRADE:
             if self.groupList.count() == 0:
                 QTimer.singleShot(0, \
-                lambda: self.pdsMessageBox.showMessage(i18n("All packages are up to date"), icon = "info"))
+                lambda: self.pdsMessageBox.showMessage(self.tr("All packages are up to date"), icon = "info"))
         if self.groupList.count() > 0:
             if self.state.inUpgrade():
                 self.pdsMessageBox.hideMessage(force = True)
@@ -185,12 +184,13 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
             self.statusUpdater.needsUpdate = False
             self.statusChanged()
 
+    updatingStatus = pyqtSignal()
     def statusChanged(self):
         self.setActionEnabled()
         if self.statusUpdater.isRunning():
             self.statusUpdater.needsUpdate = True
         else:
-            self.emit(SIGNAL("updatingStatus()"))
+            self.updatingStatus.emit()
             self.statusUpdater.start()
 
     def initializeGroupList(self):
@@ -234,7 +234,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
                 return
 
         if not self.searchLine.text() == '':
-            self.pdsMessageBox.showMessage(i18n("Searching..."), busy = True)
+            self.pdsMessageBox.showMessage(self.tr("Searching..."), busy = True)
             self.groupList.lastSelected = None
             self._searchThread.start()
             self.searchUsed = True
@@ -246,7 +246,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
 
     def searchFinished(self):
         if self.state.cached_packages == []:
-            self.pdsMessageBox.showMessage(i18n("No results found."), "dialog-information")
+            self.pdsMessageBox.showMessage(self.tr("No results found."), "dialog-information")
         else:
             self.pdsMessageBox.hideMessage()
         self.initializeGroupList()
@@ -293,6 +293,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
         else:
             self.progressDialog.enableCancel()
 
+    repositoriesUpdated = pyqtSignal()
     def actionFinished(self, operation):
         if operation in ("System.Manager.installPackage",
                          "System.Manager.removePackage",
@@ -306,7 +307,7 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
 
         if operation in ("System.Manager.updateRepository",
                          "System.Manager.updateAllRepositories"):
-            self.emit(SIGNAL("repositoriesUpdated()"))
+            self.repositoriesUpdated.emit()
         self.searchLine.clear()
         self.state.reset()
         self.progressDialog._hide()
@@ -383,8 +384,8 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
                     filtered_packages = filter(lambda x: x not in installed_packages, self.basket.model.selectedPackages())
                     if filtered_packages == self.basket.model.selectedPackages():
                         restoreCursor()
-                        QMessageBox(i18n("Select packages"),
-                                    i18n("You must select at least one installed package"),
+                        QMessageBox(self.tr("Select packages"),
+                                    self.tr("You must select at least one installed package"),
                                     QMessageBox.Information, QMessageBox.Ok, 0, 0).exec_()
                         return
                     self.packageList.model().sourceModel().selectPackages(filtered_packages, state = False)
@@ -396,9 +397,9 @@ class MainWidget(QWidget, PM, Ui_MainWidget):
 
     def initializeUpdateTypeList(self):
         self.typeCombo.clear()
-        UPDATE_TYPES = [['normal', i18n('All Updates'), ('system-software-update', 'ledgreen')],
-                        ['security', i18n('Security Updates'), ('security-medium', 'ledyellow')],
-                        ['critical', i18n('Critical Updates'), ('security-low', 'ledred')]]
+        UPDATE_TYPES = [['normal', self.tr('All Updates'), ('system-software-update', 'ledgreen')],
+                        ['security', self.tr('Security Updates'), ('security-medium', 'ledyellow')],
+                        ['critical', self.tr('Critical Updates'), ('security-low', 'ledred')]]
 
         for type in UPDATE_TYPES:
             self.typeCombo.addItem(KIcon(type[2]), type[1], QVariant(type[0]))

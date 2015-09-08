@@ -12,15 +12,15 @@
 #
 
 # Qt Stuff
-from PyQt5 import QtGui
+from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
 import packagemodel # roles needed
 
-class PackageProxy(QtGui.QSortFilterProxyModel):
+class PackageProxy(QSortFilterProxyModel):
 
     def __init__(self, parent=None):
-        QtGui.QSortFilterProxyModel.__init__(self, parent)
+        QSortFilterProxyModel.__init__(self, parent)
         self.__modelCache = {}
         self.__filteredPackages = set()
 
@@ -44,7 +44,7 @@ class PackageProxy(QtGui.QSortFilterProxyModel):
             sourceIndex = self.sourceModel().index(source_row, 0, source_parent)
             return unicode(sourceIndex.data(Qt.DisplayRole).toString()) in self.__filteredPackages
         else:
-            return QtGui.QSortFilterProxyModel.filterAcceptsRow(self, source_row, source_parent)
+            return QSortFilterProxyModel.filterAcceptsRow(self, source_row, source_parent)
 
     def getFilteredPackages(self):
         return list(self.__filteredPackages)
@@ -55,7 +55,7 @@ class PackageProxy(QtGui.QSortFilterProxyModel):
 
     def reset(self):
         self.__modelCache = {}
-        QtGui.QSortFilterProxyModel.reset(self)
+        QSortFilterProxyModel.reset(self)
 
     def resetModelCache(self):
         self.sourceModel().initPhase()

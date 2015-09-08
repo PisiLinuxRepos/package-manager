@@ -10,7 +10,7 @@
 #
 # Please read the COPYING file
 
-from PyQt5.Qt import QVariant, QSettings
+from PyQt5.QtCore import QSettings, QVariant
 
 defaults = {
             "SystemTray" : False,

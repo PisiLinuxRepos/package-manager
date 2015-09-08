@@ -13,7 +13,7 @@
 
 from PyQt5.QtCore import QObject
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtGui import QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
 
 import config
@@ -85,26 +85,26 @@ class StateManager(QObject):
         self.cached_packages = packages
 
     def getActionCurrent(self, action):
-        return {"System.Manager.installPackage":i18n("Installing Package(s)"),
-                "System.Manager.reinstallPackage":i18n("Installing Package(s)"),
-                "System.Manager.removePackage":i18n("Removing Package(s)"),
-                "System.Manager.updatePackage":i18n("Upgrading Package(s)"),
-                "System.Manager.setRepositories":i18n("Applying Repository Changes"),
-                "System.Manager.updateRepository":i18n("Updating Repository"),
-                "System.Manager.updateAllRepositories":i18n("Updating Repository(s)")}[str(action)]
+        return {"System.Manager.installPackage":self.tr("Installing Package(s)"),
+                "System.Manager.reinstallPackage":self.tr("Installing Package(s)"),
+                "System.Manager.removePackage":self.tr("Removing Package(s)"),
+                "System.Manager.updatePackage":self.tr("Upgrading Package(s)"),
+                "System.Manager.setRepositories":self.tr("Applying Repository Changes"),
+                "System.Manager.updateRepository":self.tr("Updating Repository"),
+                "System.Manager.updateAllRepositories":self.tr("Updating Repository(s)")}[str(action)]
 
     def toBe(self):
-        return {self.INSTALL:i18n("installed"),
-                self.REMOVE :i18n("removed"),
-                self.UPGRADE:i18n("upgraded"),
-                self.ALL    :i18n("modified")}[self.state]
+        return {self.INSTALL:self.tr("installed"),
+                self.REMOVE :self.tr("removed"),
+                self.UPGRADE:self.tr("upgraded"),
+                self.ALL    :self.tr("modified")}[self.state]
 
     def getActionName(self, state = None):
         state = self.state if state == None else state
-        return {self.INSTALL:i18n("Install Package(s)"),
-                self.REMOVE :i18n("Remove Package(s)"),
-                self.UPGRADE:i18n("Upgrade Package(s)"),
-                self.ALL    :i18n("Select Operation")}[state]
+        return {self.INSTALL:self.tr("Install Package(s)"),
+                self.REMOVE :self.tr("Remove Package(s)"),
+                self.UPGRADE:self.tr("Upgrade Package(s)"),
+                self.ALL    :self.tr("Select Operation")}[state]
 
     def getActionIcon(self, state = None):
         state = self.state if state == None else state
@@ -114,22 +114,22 @@ class StateManager(QObject):
                 self.ALL    :KIcon("preferences-other")}[state]
 
     def getSummaryInfo(self, total):
-        return {self.INSTALL:i18n("%1 new package(s) have been installed succesfully.", total),
-                self.REMOVE :i18n("%1 package(s) have been removed succesfully.", total),
-                self.UPGRADE:i18n("%1 package(s) have been upgraded succesfully.", total),
-                self.ALL    :i18n("%1 package(s) have been modified succesfully.", total)}[self.state]
+        return {self.INSTALL:self.tr("%1 new package(s) have been installed succesfully.", total),
+                self.REMOVE :self.tr("%1 package(s) have been removed succesfully.", total),
+                self.UPGRADE:self.tr("%1 package(s) have been upgraded succesfully.", total),
+                self.ALL    :self.tr("%1 package(s) have been modified succesfully.", total)}[self.state]
 
     def getBasketInfo(self):
-        return {self.INSTALL:i18n("You have selected the following package(s) to install:"),
-                self.REMOVE :i18n("You have selected the following package(s) to removal:"),
-                self.UPGRADE:i18n("You have selected the following package(s) to upgrade:"),
-                self.ALL    :i18n("You have selected the following package(s) to modify:")}[self.state]
+        return {self.INSTALL:self.tr("You have selected the following package(s) to install:"),
+                self.REMOVE :self.tr("You have selected the following package(s) to removal:"),
+                self.UPGRADE:self.tr("You have selected the following package(s) to upgrade:"),
+                self.ALL    :self.tr("You have selected the following package(s) to modify:")}[self.state]
 
     def getBasketExtrasInfo(self):
-        return {self.INSTALL:i18n("Extra dependencies of the selected package(s) that are also going to be installed:"),
-                self.REMOVE :i18n("Reverse dependencies of the selected package(s) that are also going to be removed:"),
-                self.UPGRADE:i18n("Extra dependencies of the selected package(s) that are also going to be upgraded:"),
-                self.ALL    :i18n("Extra dependencies of the selected package(s) that are also going to be modified:")}[self.state]
+        return {self.INSTALL:self.tr("Extra dependencies of the selected package(s) that are also going to be installed:"),
+                self.REMOVE :self.tr("Reverse dependencies of the selected package(s) that are also going to be removed:"),
+                self.UPGRADE:self.tr("Extra dependencies of the selected package(s) that are also going to be upgraded:"),
+                self.ALL    :self.tr("Extra dependencies of the selected package(s) that are also going to be modified:")}[self.state]
 
     def groups(self):
         return self.__groups
@@ -169,13 +169,13 @@ class StateManager(QObject):
         if not packages:
             return ''
 
-        text = i18n("Currently there are <b>%1</b> selected package(s) of total <b>%2</b> of size ", packages, packagesSize)
+        text = self.tr("Currently there are <b>%1</b> selected package(s) of total <b>%2</b> of size ", packages, packagesSize)
         if extraPackages:
             if self.state == self.REMOVE:
-                text += i18n("with <b>%1</b> reverse dependencies of total <b>%2</b> of size ", extraPackages, extraPackagesSize)
+                text += self.tr("with <b>%1</b> reverse dependencies of total <b>%2</b> of size ", extraPackages, extraPackagesSize)
             else:
-                text += i18n("with <b>%1</b> extra dependencies of total <b>%2</b> of size ", extraPackages, extraPackagesSize)
-        text += i18n("in your basket.")
+                text += self.tr("with <b>%1</b> extra dependencies of total <b>%2</b> of size ", extraPackages, extraPackagesSize)
+        text += self.tr("in your basket.")
 
         return text
 
@@ -210,16 +210,16 @@ class StateManager(QObject):
 
         conflicts_within = list(D)
         if conflicts_within:
-            text = i18n("Selected packages [%1] are in conflict with each other. These packages can not be installed together.", ", ".join(conflicts_within))
-            QMessageBox.critical(None, i18n("Conflict Error"), text, QMessageBox.Ok)
+            text = self.tr("Selected packages [%1] are in conflict with each other. These packages can not be installed together.", ", ".join(conflicts_within))
+            QMessageBox.critical(None, self.tr("Conflict Error"), text, QMessageBox.Ok)
             return False
 
         if pkg_conflicts:
-            text = i18n("The following packages conflicts:\n")
+            text = self.tr("The following packages conflicts:\n")
             for pkg in pkg_conflicts.keys():
-                text += i18n("%1 conflicts with: [%2]\n", pkg, ", ".join(pkg_conflicts[pkg]))
-            text += i18n("\nRemove the conflicting packages from the system?")
-            return QMessageBox.warning(None, i18n("Conflict Error"), text, QMessageBox.Yes, QMessageBox.No) == QMessageBox.Yes
+                text += self.tr("%1 conflicts with: [%2]\n", pkg, ", ".join(pkg_conflicts[pkg]))
+            text += self.tr("\nRemove the conflicting packages from the system?")
+            return QMessageBox.warning(None, self.tr("Conflict Error"), text, QMessageBox.Yes, QMessageBox.No) == QMessageBox.Yes
 
         return True
 
@@ -244,7 +244,7 @@ class StateManager(QObject):
 
     def showFailMessage(self):
         QMessageBox.critical(None,
-                             i18n("Network Error"),
-                             i18n("Please check your network connections and try again."),
+                             self.tr("Network Error"),
+                             self.tr("Please check your network connections and try again."),
                              QMessageBox.Ok)
 

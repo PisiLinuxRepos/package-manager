@@ -11,16 +11,16 @@
 # Please read the COPYING file.
 #
 
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 
 from pmutils import *
 
-class PackageView(QtGui.QTableView):
+class PackageView(QTableView):
     def __init__(self, parent=None):
-        QtGui.QTableView.__init__(self, parent)
+        QTableView.__init__(self, parent)
 
-        self.select_all = QtGui.QCheckBox(i18n('Select all packages in this group'), self)
+        self.select_all = QCheckBox(self.tr('Select all packages in this group'), self)
         self.select_all.resize(parent.width(), 32)
         self.select_all.move(3,3)
         self.select_all.setStyleSheet('padding:8px;padding-left:4px;')
@@ -38,7 +38,7 @@ class PackageView(QtGui.QTableView):
 
     def resizeEvent(self, event):
         if event.isAccepted():
-            QtGui.QTableView.resizeEvent(self, event)
+            QTableView.resizeEvent(self, event)
             if self.needs_select_all:
                 self.setViewportMargins(0, 32, 0, 0)
                 self.select_all.resize(self.viewport().width(), 32)
