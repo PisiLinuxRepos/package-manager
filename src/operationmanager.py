@@ -35,10 +35,10 @@ class OperationManager(QObject):
         self.totalDownloaded = 0
         self.curPkgDownloaded = 0
         self.desktopFiles = []
-        self._operation_signals = {"installing":i18n('installing'),
-                                   "removing":i18n('removing'),
-                                   "extracting":i18n('extracting'),
-                                   "configuring":i18n('configuring')}
+        self._operation_signals = {"installing":self.tr('installing'),
+                                   "removing":self.tr('removing'),
+                                   "extracting":self.tr('extracting'),
+                                   "configuring":self.tr('configuring')}
 
     def setTotalPackages(self, totalPackages):
         self.totalPackages = totalPackages
@@ -140,7 +140,7 @@ class OperationManager(QObject):
 
         elif signal == "fetching":
             if not args[0].startswith("pisi-index.xml"):
-                self.operationChanged.emit(i18n("downloading"), args[0])
+                self.operationChanged.emit(self.tr("downloading"), args[0])
             self.updateTotalDownloaded(args[4], args[5], args[2], args[3])
             self.calculateTimeLeft(args[2], args[3])
             self.updateTotalOperationPercent()
@@ -179,4 +179,4 @@ class OperationManager(QObject):
             if self.packageNo > self.totalPackages:
                 self.totalPackages = self.packageNo
             self.updatePackageProgress()
-            self.packageChanged.emit(self.packageNo, self.totalPackages, i18n(signal))
+            self.packageChanged.emit(self.packageNo, self.totalPackages, self.tr(signal))

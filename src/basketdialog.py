@@ -10,8 +10,10 @@
 #
 # Please read the COPYING file
 
-from PyQt5 import QtGui
+from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
 
 from packagemodel import GroupRole
 from packageproxy import PackageProxy
@@ -50,10 +52,10 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
         self.clearButton.setIcon(KIcon("trashcan_empty"))
 
     def clearSelections(self):
-        sure = QtGui.QMessageBox.question(self, i18n("Clear Basket"),
-                                                i18n("Do you want to clear all selections ?"),
-                                                QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-        if sure == QtGui.QMessageBox.Yes:
+        sure = QMessageBox.question(self, self.tr("Clear Basket"),
+                                                self.tr("Do you want to clear all selections ?"),
+                                                QMessageBox.Yes | QMessageBox.No)
+        if sure == QMessageBox.Yes:
             self._hide()
             self.state.state = self.parent.cw.currentState
             self.parent.cw.initialize()
@@ -65,8 +67,8 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
         try:
             self.filterExtras()
         except Exception, e:
-            messageBox = QtGui.QMessageBox(i18n("Pisi Error"), unicode(e),
-                    QtGui.QMessageBox.Critical, QtGui.QMessageBox.Ok, 0, 0)
+            messageBox = QMessageBox(self.tr("Pisi Error"), unicode(e),
+                    QMessageBox.Critical, QMessageBox.Ok, 0, 0)
             QTimer.singleShot(0, restoreCursor)
             messageBox.exec_()
             return
@@ -83,22 +85,14 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
         self.animate(start = MIDCENTER, stop = BOTCENTER, direction = OUT)
 
     def connectModelSignals(self):
-        self.connect(self.packageList.model(),
-                SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
-                self.filterExtras)
+        self.packageList.model().dataChanged.connect(self.filterExtras)
 
-        self.connect(self.packageList.model(),
-                SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
-                self.updateTotal)
+        self.packageList.model().dataChanged.connect(self.updateTotal)
 
     def disconnectModelSignals(self):
-        self.disconnect(self.packageList.model(),
-                SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
-                self.filterExtras)
+        self.packageList.model().dataChanged.disconnect(self.filterExtras)
 
-        self.disconnect(self.packageList.model(),
-                SIGNAL("dataChanged(QModelIndex,QModelIndex)"),
-                self.updateTotal)
+        self.packageList.model().dataChanged.disconnect(self.updateTotal)
 
     def __initList(self, packageList):
         packageList.setModel(PackageProxy(self))
@@ -167,19 +161,19 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
                 self.model.selectedPackages() + self.model.extraPackages())
             if actions[0]:
                 answer = askForActions(actions[0],
-                       i18n("You must restart your system for the "
+                       self.tr("You must restart your system for the "
                             "updates to take effect"),
-                       i18n("Update Requirements"),
-                       i18n("Packages Require System Restart"))
+                       self.tr("Update Requirements"),
+                       self.tr("Packages Require System Restart"))
             if not answer:
                 self.setActionEnabled(True)
                 return
             if actions[1]:
                 answer = askForActions(actions[1],
-                       i18n("You must restart related system services for "
+                       self.tr("You must restart related system services for "
                             "the updated package(s) to take effect"),
-                       i18n("Update Requirements"),
-                       i18n("Packages Require Service Restart"))
+                       self.tr("Update Requirements"),
+                       self.tr("Packages Require Service Restart"))
             if not answer:
                 self.setActionEnabled(True)
                 return
@@ -190,11 +184,11 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
                 self.model.selectedPackages() + self.model.extraPackages())
             if actions:
                 answer = askForActions(actions,
-                       i18n("Selected packages are considered critical "
+                       self.tr("Selected packages are considered critical "
                             "for the system. Removing them may cause your "
                             "system to be unusable."),
-                       i18n("Warning"),
-                       i18n("Critical Packages"))
+                       self.tr("Warning"),
+                       self.tr("Critical Packages"))
             if not answer:
                 self.setActionEnabled(True)
                 return
@@ -205,10 +199,10 @@ class BasketDialog(PAbstractBox, Ui_BasketDialog):
             actions = self.state.checkInstallActions(self.model.selectedPackages())
             if actions:
                 answer = askForActions(actions,
-                       i18n("Selected packages are already installed.<br>"
+                       self.tr("Selected packages are already installed.<br>"
                             "If you continue, the packages will be reinstalled"),
-                       i18n("Already Installed Packages"),
-                       i18n("Installed Packages"))
+                       self.tr("Already Installed Packages"),
+                       self.tr("Installed Packages"))
             if not answer:
                 self.setActionEnabled(True)
                 return

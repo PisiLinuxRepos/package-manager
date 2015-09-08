@@ -11,7 +11,8 @@
 # Please read the COPYING file.
 #
 
-from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from pds.gui import *
 from pds.qprogressindicator import QProgressIndicator
 from ui_message import Ui_MessageBox
@@ -31,7 +32,7 @@ class PMessageBox(PAbstractBox):
         self.ui.setupUi(self)
 
         self.busy = QProgressIndicator(self, "white")
-        self.busy.setMinimumSize(QtCore.QSize(32, 32))
+        self.busy.setMinimumSize(QSize(32, 32))
         self.busy.hide()
         self.ui.mainLayout.insertWidget(1, self.busy)
 
@@ -53,14 +54,14 @@ class PMessageBox(PAbstractBox):
             if icon:
                 if type(icon) == str:
                     icon = KIcon(icon).pixmap(32,32)
-                self.ui.icon.setPixmap(QtGui.QPixmap(icon))
+                self.ui.icon.setPixmap(QPixmap(icon))
                 self.ui.icon.show()
             else:
                 self.ui.icon.hide()
             self.busy.hide()
 
         self.last_msg = self.animate(start = PMessageBox.IN_POS, stop = PMessageBox.STOP_POS)
-        QtGui.qApp.processEvents()
+        qApp.processEvents() # ???
 
     def hideMessage(self, force = False):
         if self.isVisible() or force:

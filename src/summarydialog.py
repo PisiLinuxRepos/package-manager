@@ -11,7 +11,8 @@
 # Please read the COPYING file
 
 import os
-from PyQt5 import QtGui
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import qApp
 from PyQt5.QtCore import *
 
@@ -24,18 +25,18 @@ import backend
 import localedata
 import desktopparser
 
-class ApplicationItem(QtGui.QListWidgetItem):
+class ApplicationItem(QListWidgetItem):
     def __init__(self, name, genericName, icon, command, parent=None):
-        QtGui.QListWidgetItem.__init__(self, parent)
+        QListWidgetItem.__init__(self, parent)
 
         self.name = name
         self.genericName = genericName
         self.icon = icon
         self.command = command.split()[0]
 
-class ApplicationItemWidget(QtGui.QWidget, Ui_ApplicationItem):
+class ApplicationItemWidget(QWidget, Ui_ApplicationItem):
     def __init__(self, item, parent=None):
-        QtGui.QListWidgetItem.__init__(self, parent)
+        QListWidgetItem.__init__(self, parent)
         self.setupUi(self)
         self.item = item
         self.initialize()
@@ -67,9 +68,9 @@ class ApplicationItemWidget(QtGui.QWidget, Ui_ApplicationItem):
     def mouseDoubleClickEvent(self, event):
         os.popen('%s&' % self.item.command)
 
-class SummaryDialog(QtGui.QDialog, Ui_SummaryDialog):
+class SummaryDialog(QDialog, Ui_SummaryDialog):
     def __init__(self, parent = None):
-        QtGui.QDialog.__init__(self, parent)
+        QDialog.__init__(self, parent)
         self.setupUi(self)
         self.iface = backend.pm.Iface()
         self.lang = localedata.setSystemLocale(justGet = True)

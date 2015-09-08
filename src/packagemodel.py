@@ -23,6 +23,7 @@ from pmlogging import logger
 from statemanager import StateManager
 
 import config
+
 if config.USE_APPINFO:
     from appinfo.client import AppInfoClient
 

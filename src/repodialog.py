@@ -12,14 +12,14 @@
 
 import pisi
 
-from PyQt5 import QtGui
+from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import *
 
 from ui_repodialog import Ui_RepoDialog
 
-class RepoDialog(QtGui.QDialog, Ui_RepoDialog):
+class RepoDialog(QDialog, Ui_RepoDialog):
     def __init__(self, parent=None):
-        QtGui.QDialog.__init__(self, parent)
+        QDialog.__init__(self, parent)
         self.setupUi(self)
         arch = pisi.ctx.config.values.general.architecture
         self.repoAddress.addItem("http://packages.pisilinux.org/repositories/%s/stable/x86_64/pisi-index.xml.xz" % arch)

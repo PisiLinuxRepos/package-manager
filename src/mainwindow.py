@@ -11,16 +11,15 @@
 # Please read the COPYING file.
 #
 
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import qApp
-from PyQt5.QtGui import QMenu
+from PyQt5.QtWidgets import qApp # ???
+from PyQt5.QtWidgets import QMenu
 from PyQt5.QtGui import QIcon
-from PyQt5.QtGui import QLabel
-from PyQt5.QtGui import QAction
-from PyQt5.QtGui import QWidget
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QShortcut
-from PyQt5.QtGui import QMainWindow
-from PyQt5.QtGui import QActionGroup
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QActionGroup
 from PyQt5.QtGui import QKeySequence
 
 from PyQt5.QtCore import *
@@ -132,30 +131,30 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def initializeOperationActions(self):
 
-        self.showAllAction = QAction(KIcon(("applications-other", "package_applications")), i18n("All Packages"), self)
+        self.showAllAction = QAction(KIcon(("applications-other", "package_applications")), self.tr("All Packages"), self)
         self.showAllAction.triggered.connect(lambda:self.cw.switchState(StateManager.ALL))
-        self.cw.stateTab.addTab(QWidget(), KIcon(("applications-other", "package_applications")), i18n("All Packages"))
+        self.cw.stateTab.addTab(QWidget(), KIcon(("applications-other", "package_applications")), self.tr("All Packages"))
 
-        self.showInstallAction = QAction(KIcon(("list-add", "add")), i18n("Installable Packages"), self)
+        self.showInstallAction = QAction(KIcon(("list-add", "add")), self.tr("Installable Packages"), self)
         self.showInstallAction.triggered.connect(lambda:self.cw.switchState(StateManager.INSTALL))
-        self.cw.stateTab.addTab(QWidget(), KIcon(("list-add", "add")), i18n("Installable Packages"))
+        self.cw.stateTab.addTab(QWidget(), KIcon(("list-add", "add")), self.tr("Installable Packages"))
 
-        self.showRemoveAction = QAction(KIcon(("list-remove", "remove")), i18n("Installed Packages"), self)
+        self.showRemoveAction = QAction(KIcon(("list-remove", "remove")), self.tr("Installed Packages"), self)
         self.showRemoveAction.triggered.connect(lambda:self.cw.switchState(StateManager.REMOVE))
-        self.cw.stateTab.addTab(QWidget(), KIcon(("list-remove", "remove")), i18n("Installed Packages"))
+        self.cw.stateTab.addTab(QWidget(), KIcon(("list-remove", "remove")), self.tr("Installed Packages"))
 
-        self.showUpgradeAction = QAction(KIcon(("system-software-update", "gear")), i18n("Updates"), self)
+        self.showUpgradeAction = QAction(KIcon(("system-software-update", "gear")), self.tr("Updates"), self)
         self.showUpgradeAction.triggered.connect(lambda:self.cw.switchState(StateManager.UPGRADE))
-        self.cw.stateTab.addTab(QWidget(), KIcon(("system-software-update", "gear")), i18n("Updates"))
+        self.cw.stateTab.addTab(QWidget(), KIcon(("system-software-update", "gear")), self.tr("Updates"))
 
-        self.showPreferences = QAction(KIcon(("preferences-system", "package_settings")), i18n("Settings"), self)
+        self.showPreferences = QAction(KIcon(("preferences-system", "package_settings")), self.tr("Settings"), self)
         self.showPreferences.triggered.connect(self.settingsDialog.show)
 
-        self.actionHelp = QAction(KIcon("help"), i18n("Help"), self)
+        self.actionHelp = QAction(KIcon("help"), self.tr("Help"), self)
         self.actionHelp.setShortcuts(QKeySequence.HelpContents)
         self.actionHelp.triggered.connect(self.showHelp)
 
-        self.actionQuit = QAction(KIcon("exit"), i18n("Quit"), self)
+        self.actionQuit = QAction(KIcon("exit"), self.tr("Quit"), self)
         self.actionQuit.setShortcuts(QKeySequence.Quit)
         self.actionQuit.triggered.connect(qApp.exit)
 
@@ -185,7 +184,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cw.switchState(self.cw.state.ALL)
 
     def statusWaiting(self):
-        self.updateStatusBar(i18n('Calculating dependencies...'), busy = True)
+        self.updateStatusBar(self.tr('Calculating dependencies...'), busy = True)
 
     def showHelp(self):
         self.Pds = pds.Pds()
@@ -204,7 +203,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def updateStatusBar(self, text, busy = False):
         if text == '':
-            text = i18n("Currently your basket is empty.")
+            text = self.tr("Currently your basket is empty.")
             self.busy.hide()
             self.cw.showBasketButton.hide()
         else:

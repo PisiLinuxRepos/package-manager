@@ -76,8 +76,8 @@ class PackageDelegate(QStyledItemDelegate):
         self._rt_0 = QIcon(":/data/star_0.png")
         self._rt_1 = QIcon(":/data/star_1.png")
 
-        self.types = {'critical':(RED,     i18n('critical')),
-                      'security':(DARKRED, i18n('security'))}
+        self.types = {'critical':(RED,     self.tr('critical')),
+                      'security':(DARKRED, self.tr('security'))}
 
         self.font = Pds.settings('font','Sans,10').split(',')[0]
 
@@ -93,12 +93,12 @@ class PackageDelegate(QStyledItemDelegate):
         self.normalFontFM = QFontMetrics(self.normalFont)
         self.normalDetailFontFM = QFontMetrics(self.normalDetailFont)
 
-        self._titles = {'description': i18n("Description:"),
-                        'website'    : i18n("Website:"),
-                        'release'    : i18n("Release:"),
-                        'repository' : i18n("Repository:"),
-                        'size'       : i18n("Package Size:"),
-                        'installVers': i18n("Installed Version:")}
+        self._titles = {'description': self.tr("Description:"),
+                        'website'    : self.tr("Website:"),
+                        'release'    : self.tr("Release:"),
+                        'repository' : self.tr("Repository:"),
+                        'size'       : self.tr("Package Size:"),
+                        'installVers': self.tr("Installed Version:")}
 
         self._titleFM = {}
         for key, value in self._titles.items():
@@ -308,7 +308,7 @@ class PackageDelegate(QStyledItemDelegate):
             # Package Detail Repository
             repository = index.model().data(index, RepositoryRole).toString()
             if not repository == '':
-                repository = i18n('Unknown')  if repository == 'N/A' else repository
+                repository = self.tr('Unknown')  if repository == 'N/A' else repository
                 position += rect.height()
 
                 p.setFont(self.boldDetailFont)
@@ -335,7 +335,7 @@ class PackageDelegate(QStyledItemDelegate):
             if option.state & QStyle.State_MouseOver or option.state & QStyle.State_HasFocus:
                 buttonStyle.state |= QStyle.State_HasFocus
             buttonStyle.state |= QStyle.State_Enabled
-            buttonStyle.text = i18n("Details")
+            buttonStyle.text = self.tr("Details")
 
             buttonStyle.rect = QRect(width - 100, position - 22, 100, 22)
 

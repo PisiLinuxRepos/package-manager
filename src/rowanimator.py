@@ -12,7 +12,6 @@
 #
 
 # Qt Stuff
-from PyQt5 import QtGui
 from PyQt5.QtCore import *
 
 DEFAULT_HEIGHT = 52

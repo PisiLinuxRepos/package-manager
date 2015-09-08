@@ -32,6 +32,9 @@ from localedata import setSystemLocale
 
 from pmutils import *
 
+# dil desteği
+_ = QObject()
+
 if __name__ == '__main__':
     # Catch signals
     signal.signal(signal.SIGINT, signal.SIG_DFL)
@@ -44,7 +47,7 @@ if __name__ == '__main__':
     # Use raster to make it faster
     QApplication.setGraphicsSystem('raster')
 
-    usage = unicode(i18n("%prog packages_to_install"))
+    usage = unicode(_.tr("%prog packages_to_install"))
     parser = OptionParser(usage=usage)
 
     packages = filter(lambda x: not x.startswith('-'), sys.argv[1:])

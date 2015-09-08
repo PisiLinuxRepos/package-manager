@@ -60,7 +60,7 @@ class ProgressDialog(PAbstractBox, Ui_ProgressDialog):
     def _hide(self):
         if self._shown:
             self.animate(direction = OUT, start = MIDCENTER, stop = MIDCENTER)
-            self.parent.setWindowTitle(i18n("Package Manager"))
+            self.parent.setWindowTitle(self.tr("Package Manager"))
             self._shown = False
 
     def updateProgress(self, progress):
@@ -72,29 +72,29 @@ class ProgressDialog(PAbstractBox, Ui_ProgressDialog):
                 self.disableCancel()
             self._show()
         self.progressBar.setValue(progress)
-        self.percentage.setText(i18n("<p align='right'>%1 %</p>", progress))
-        self.parent.setWindowTitle(i18n("Operation - %1%", progress))
+        self.percentage.setText(self.tr("<p align='right'>%1 %</p>", progress))
+        self.parent.setWindowTitle(self.tr("Operation - %1%", progress))
 
     def updateOperation(self, operation, arg):
-        if operation in [i18n("configuring"),  i18n("extracting")]:
+        if operation in [self.tr("configuring"),  self.tr("extracting")]:
             self.disableCancel()
 
         if operation == "updatingrepo":
-            operationInfo = i18n("Downloading package list of %1", arg)
+            operationInfo = self.tr("Downloading package list of %1", arg)
         else:
-            operationInfo = i18n('%1 %2', operation, arg)
+            operationInfo = self.tr('%1 %2', operation, arg)
 
         self.operationInfo.setText(operationInfo)
 
     def updateStatus(self, packageNo, totalPackages, operation):
-        text = i18n("[%1 / %2]", packageNo, totalPackages)
+        text = self.tr("[%1 / %2]", packageNo, totalPackages)
         self.actionLabel.setText("%s %s" % (text, self._last_action))
 
     def updateRemainingTime(self, time):
         self.timeRemaining.setText("<p align='right'>%s</p>" % time)
 
     def updateCompletedInfo(self, completed, total, rate):
-        text = i18n("%1 / %2, %3", completed, total, rate)
+        text = self.tr("%1 / %2, %3", completed, total, rate)
         self.completedInfo.setText(text)
 
     def updateActionLabel(self, action):
@@ -111,7 +111,7 @@ class ProgressDialog(PAbstractBox, Ui_ProgressDialog):
         self.widget.hide()
         self.busy.show()
 
-        self.actionLabel.setText(i18n("Preparing PiSi..."))
+        self.actionLabel.setText(self.tr("Preparing PiSi..."))
         self.progressBar.setValue(0)
         self.operationInfo.setText("")
         self.completedInfo.setText("")
@@ -122,7 +122,7 @@ class ProgressDialog(PAbstractBox, Ui_ProgressDialog):
         self.widget.hide()
         self.busy.show()
 
-        self.actionLabel.setText(i18n("<b>Cancelling operation...</b>"))
+        self.actionLabel.setText(self.tr("<b>Cancelling operation...</b>"))
         self.disableCancel()
         QTimer.singleShot(100, self.iface.cancel)
 
