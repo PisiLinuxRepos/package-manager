@@ -13,7 +13,6 @@
 import os
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import qApp
 from PyQt5.QtCore import *
 
 from ui_summarydialog import Ui_SummaryDialog

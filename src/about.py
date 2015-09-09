@@ -27,20 +27,20 @@ appName     = "package-manager"
 catalog     = appName
 programName = _.tr(PACKAGE)
 description = _.tr(PACKAGE)
-license     = KAboutData.License_GPL
+license     = "GPL" #KAboutData.License_GPL
 copyright   = _.tr("(c) 2009-2010 TUBITAK/UEKAE")
 text        = _.tr(None)
 homePage    = "https://github.com/pisilinux/project/tree/master/package-manager-pds"
 bugEmail    = "bugs@pisilinux.org"
-aboutData   = KAboutData(appName, catalog, programName, version,
+aboutData   = """KAboutData(appName, catalog, programName, version,
                          description, license, copyright, text,
-                         homePage, bugEmail)
+                         homePage, bugEmail)"""
 
 # Authors
-aboutData.addAuthor(_.tr("Gökmen Göksel"), _.tr("Developer"))
+"""aboutData.addAuthor(_.tr("Gökmen Göksel"), _.tr("Developer"))
 aboutData.addAuthor(_.tr("Metehan Özbek"), _.tr("KDE5 Port"))
 aboutData.addAuthor(_.tr("Faik Uygur"), _.tr("First Author"))
 aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS", "Your names"),
                         ki18nc("EMAIL OF TRANSLATORS", "Your emails"))
-aboutData.setProgramIconName(":/data/package-manager.png")
+aboutData.setProgramIconName(":/data/package-manager.png")"""
 

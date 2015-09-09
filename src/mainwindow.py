@@ -17,7 +17,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QAction
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QShortcut
+from PyQt5.QtWidgets import QShortcut
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QActionGroup
 from PyQt5.QtGui import QKeySequence

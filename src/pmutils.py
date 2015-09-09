@@ -49,6 +49,8 @@ Pds = pds.Pds('package-manager', debug = False)
 #KIcon = KIconLoader.icon
 
 class PM:
+    def __init__(self, parent=None):
+        pass
 
     def connectOperationSignals(self):
         # Basic connections
