@@ -11,10 +11,9 @@
 # Please read the COPYING file.
 #
 
-from PyQt5.QtGui import qApp # ???
 from PyQt5.QtWidgets import QMenu
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import QCompleter
+from PyQt5.QtWidgets import QCompleter
 from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
 from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QToolButton

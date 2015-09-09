@@ -12,21 +12,21 @@
 #
 
 # Qt Stuff
-from PyQt5.QtGui import qApp
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QIcon
 from PyQt5.QtGui import QFont
 from PyQt5.QtGui import QColor
-from PyQt5.QtGui import QStyle
+from PyQt5.QtWidgets import QStyle
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtGui import QPainter
 from PyQt5.QtGui import QPalette
 from PyQt5.QtGui import QFontMetrics
-from PyQt5.QtGui import QItemDelegate
-from PyQt5.QtGui import QStyleFactory
+from PyQt5.QtWidgets import QItemDelegate
+from PyQt5.QtWidgets import QStyleFactory
 from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtGui import QStyleOptionButton
-from PyQt5.QtGui import QStyledItemDelegate
-from PyQt5.QtGui import QStyleOptionViewItemV4
+from PyQt5.QtWidgets import QStyleOptionButton
+from PyQt5.QtWidgets import QStyledItemDelegate
+from PyQt5.QtWidgets import QStyleOptionViewItem # V4 yok. FIXME
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QUrl
@@ -60,7 +60,7 @@ ICON_SIZE = 2
 
 class PackageDelegate(QStyledItemDelegate):
 
-    AppStyle = qApp.style
+    AppStyle = QApplication.style
 
     def __init__(self, parent=None, mainWindow=None, showDetailsButton=True, animatable=True):
         super(PackageDelegate, self).__init__(parent)
@@ -123,7 +123,7 @@ class PackageDelegate(QStyledItemDelegate):
             self.paintInfoColumn(painter, option, index, width_limit = 10)
 
     def paintCheckBoxColumn(self, painter, option, index):
-        opt = QStyleOptionViewItemV4(option)
+        opt = QStyleOptionViewItem(option)
 
         buttonStyle = QStyleOptionButton()
         buttonStyle.state = QStyle.State_On if index.model().data(index, Qt.CheckStateRole) == QVariant(Qt.Checked) else QStyle.State_Off
@@ -329,7 +329,7 @@ class PackageDelegate(QStyledItemDelegate):
             self.rowAnimator.max_height = position - top + 8
 
             # Package More info button
-            opt = QStyleOptionViewItemV4(option)
+            opt = QStyleOptionViewItem(option)
 
             buttonStyle = QStyleOptionButton()
             if option.state & QStyle.State_MouseOver or option.state & QStyle.State_HasFocus:

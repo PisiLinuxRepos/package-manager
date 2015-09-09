@@ -41,11 +41,12 @@ if __name__ == '__main__':
 
     # Create a dbus mainloop if its not exists
     if not dbus.get_default_main_loop():
-        from dbus.mainloop.qt import DBusQtMainLoop
+        from dbus.mainloop.pyqt5 import DBusQtMainLoop
         DBusQtMainLoop(set_as_default = True)
 
     # Use raster to make it faster
-    QApplication.setGraphicsSystem('raster')
+    # Qt5 ile kalkmış. Yerine kullanılacak şeyi bilmiyorum.
+    #QApplication.setGraphicsSystem('raster')
 
     pid = os.fork()
     if pid:
